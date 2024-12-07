@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>113306020_Lab3_Number Guessing Game</title>
+</head>
+<body>
+    <h1>113306020_Lab3_Number Guessing Game</h1>
+    <div id="result"></div>
+
+    <script>
+        var answer = Math.floor(Math.random() * (100 - 2 + 1)) + 2;
+        var chances = 7;
+        var minRange = 0, maxRange = 100;
+
+        while (chances > 0) {
+            var userInput = prompt(`請輸入 ${minRange} ~ ${maxRange} 間的數字\n還剩 ${chances} 次機會：`);
+
+            if (userInput === null || userInput.trim() === "") {
+                alert("請輸入有效數字！");
+                continue;
+            }
+
+            var guess = parseInt(userInput, 10);
+
+            if (isNaN(guess) || guess < minRange || guess > maxRange) {
+                alert("請輸入有效範圍內的數字！");
+                continue;
+            }
+
+            if (guess === answer) {
+                alert("恭喜答對！");
+                document.getElementById("result").innerHTML = '<img src="correct.jpg" alt="答對" />';
+                break;
+            } else {
+                chances--;
+                if (guess < answer) {
+                    minRange = guess;
+                    alert("太小");
+                } else {
+                    maxRange = guess;
+                    alert("太大");
+                }
+
+                if (chances === 0) {
+                    alert(`機會已用完！正確答案是 ${answer}。`);
+                    document.getElementById("result").innerHTML = '<img src="wrong.jpg" alt="答錯" />';
+                    break;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
